@@ -75,7 +75,10 @@ class AUTaxFileNumberFieldValidator(RegexValidator):
         """
         # 1. Multiply each digit by its weighting factor.
         digits = [int(i) for i in list(value)]
-        WEIGHTING_FACTORS = [1, 4, 3, 7, 5, 8, 6, 9, 10]
+        WEIGHTING_FACTORS = {
+            8: [10, 7, 8, 4, 6, 3, 5, 1],
+            9: [1, 4, 3, 7, 5, 8, 6, 9, 10],
+        }[len(digits)]
         weighted = [digit * weight for digit, weight in zip(digits, WEIGHTING_FACTORS)]
 
         # 2. Sum the resulting values.
